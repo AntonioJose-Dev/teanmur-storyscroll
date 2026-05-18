@@ -902,14 +902,14 @@ body {
    ══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 480px) {
-  /* Logo: más pegado al borde izquierdo y ligeramente más pequeño */
+  /* Logo: más grande y pegado al borde izquierdo */
   #site-logo {
-    height: clamp(52px, 14vw, 80px);
+    height: clamp(64px, 18vw, 96px);
   }
 
   /* Header: padding-left mínimo para que el logo quede a la izquierda */
   #site-header {
-    padding: 10px 12px 10px 4px;
+    padding: 10px 12px 10px 2px;
     gap: 8px;
   }
 
@@ -917,6 +917,21 @@ body {
   .site-header-contact {
     margin-top: 10px;
   }
+
+  /* Iconos sociales con colores de marca en móvil */
+  .site-header-social a:nth-child(1) {
+    color: #E1306C; /* Instagram rosa */
+  }
+  .site-header-social a:nth-child(2) {
+    color: #25D366; /* WhatsApp verde */
+  }
+  .site-header-social a:nth-child(3) {
+    color: #1877F2; /* Facebook azul */
+  }
+  /* Cancelar el hover blanco en móvil para mantener el color de marca */
+  .site-header-social a:nth-child(1):hover { color: #c13584; }
+  .site-header-social a:nth-child(2):hover { color: #128C7E; }
+  .site-header-social a:nth-child(3):hover { color: #0d5dbf; }
 
   /* Mark-preview: no debe salirse del viewport */
   .mark-preview {
