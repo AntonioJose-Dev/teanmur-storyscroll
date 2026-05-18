@@ -704,6 +704,57 @@ style.textContent = `
     border-color: rgba(var(--sp-accent-rgb), 0.45);
     background: rgba(var(--sp-accent-rgb), 0.08);
   }
+
+  /* ── Responsive móvil ──────────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    #sp-modal {
+      width: calc(100vw - 16px);
+      max-height: 92vh;
+      border-radius: 14px;
+    }
+    #sp-header {
+      padding: 16px 18px 12px;
+    }
+    #sp-body {
+      padding: 14px 16px 18px;
+      gap: 14px;
+    }
+
+    /* Imagen lateral de Quiénes somos: demasiado ancha en pantallas pequeñas */
+    .sp-brand-img-wrap {
+      width: 100px;
+    }
+
+    /* Imagen de cabecera del hub */
+    .sp-hub-img-wrap { max-height: 110px; }
+    .sp-hub-img      { height: 110px; }
+
+    /* CTAs a ancho completo para mejor área de toque */
+    .sp-cta,
+    .sp-hub-cta-matte,
+    .sp-hub-back,
+    .sp-store-nav-secondary {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .sp-hub-actions {
+      flex-direction: column;
+    }
+
+    /* Contacto: horarios en columna para evitar overflow */
+    .sp-hours-row {
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    /* Mapa: altura ajustada */
+    .sp-contact-map {
+      min-height: 180px;
+      max-height: 220px;
+    }
+  }
 `;
 document.head.appendChild(style);
 

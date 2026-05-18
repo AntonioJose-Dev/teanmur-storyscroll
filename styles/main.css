@@ -895,3 +895,89 @@ body {
   .advice-overlay.is-open .advice-panel { transform: none; }
   .ai-advice-dot { animation: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE MÓVIL GLOBAL (≤ 480px)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  /* Logo ligeramente más pequeño en pantallas muy estrechas */
+  #site-logo {
+    height: clamp(52px, 14vw, 80px);
+  }
+
+  /* Header: menos padding lateral */
+  #site-header {
+    padding: 12px 14px 12px 8px;
+    gap: 10px;
+  }
+
+  /* Mark-preview: evita que se salga del viewport */
+  .mark-preview {
+    max-width: calc(100vw - 24px) !important;
+  }
+
+  /* Advice overlay: sube desde abajo (más natural en móvil) */
+  .advice-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .advice-panel {
+    border-radius: 18px 18px 0 0;
+    max-height: 92vh;
+  }
+  .advice-form-panel {
+    border-radius: 18px 18px 0 0;
+  }
+
+  /* Footer: blob un poco más ancho */
+  #site-footer {
+    height: 180px;
+  }
+  .sf-blob-wrap {
+    width: 80vw;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE MÓVIL GLOBAL (≤ 480px)
+   ══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  /* Logo: ligeramente más pequeño en pantallas muy estrechas */
+  #site-logo {
+    height: clamp(52px, 14vw, 80px);
+  }
+
+  /* Header: menos padding */
+  #site-header {
+    padding: 12px 14px 12px 8px;
+    gap: 10px;
+  }
+
+  /* Mark-preview: no debe salirse del viewport */
+  .mark-preview {
+    max-width: calc(100vw - 24px) !important;
+  }
+
+  /* Advice overlay: sube desde abajo en móvil (más natural) */
+  .advice-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .advice-panel {
+    border-radius: 18px 18px 0 0;
+    max-height: 92vh;
+  }
+  .advice-form-panel {
+    border-radius: 18px 18px 0 0;
+  }
+
+  /* Footer: menos espacio */
+  #site-footer {
+    height: 180px;
+  }
+  .sf-blob-wrap {
+    width: 80vw;
+  }
+}

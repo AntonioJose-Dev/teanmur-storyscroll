@@ -307,6 +307,24 @@ export function initAIWidget(options = {}) {
       0%,100% { opacity: 1; transform: scale(1); }
       50%      { opacity: 0.4; transform: scale(0.72); }
     }
+
+    /* ── Responsive móvil ────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      #ai-fab {
+        bottom: 18px;
+        right: 16px;
+        width: 52px;
+        height: 52px;
+      }
+      #ai-widget {
+        width: calc(100vw - 32px);
+        right: 16px;
+        bottom: 82px;
+      }
+      #ai-messages {
+        max-height: 220px;
+      }
+    }
   `;
   document.head.appendChild(style);
 
