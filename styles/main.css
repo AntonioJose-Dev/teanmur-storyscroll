@@ -9,6 +9,7 @@ html { scroll-behavior: auto; }
 body {
   background: #000;
   overflow-x: hidden;
+  overscroll-behavior-y: none; /* evita el rebote negro en iOS/Android */
 }
 
 /* ── Logo header ─────────────────────────────────────────────────── */
@@ -106,7 +107,7 @@ body {
 
   .site-header-contact {
     gap: 6px;
-    margin-top: 4px;
+    margin-top: 6px;
   }
 }
 
@@ -901,58 +902,20 @@ body {
    ══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 480px) {
-  /* Logo ligeramente más pequeño en pantallas muy estrechas */
+  /* Logo: más pegado al borde izquierdo y ligeramente más pequeño */
   #site-logo {
     height: clamp(52px, 14vw, 80px);
   }
 
-  /* Header: menos padding lateral */
+  /* Header: padding-left mínimo para que el logo quede a la izquierda */
   #site-header {
-    padding: 12px 14px 12px 8px;
-    gap: 10px;
+    padding: 10px 12px 10px 4px;
+    gap: 8px;
   }
 
-  /* Mark-preview: evita que se salga del viewport */
-  .mark-preview {
-    max-width: calc(100vw - 24px) !important;
-  }
-
-  /* Advice overlay: sube desde abajo (más natural en móvil) */
-  .advice-overlay {
-    padding: 0;
-    align-items: flex-end;
-  }
-  .advice-panel {
-    border-radius: 18px 18px 0 0;
-    max-height: 92vh;
-  }
-  .advice-form-panel {
-    border-radius: 18px 18px 0 0;
-  }
-
-  /* Footer: blob un poco más ancho */
-  #site-footer {
-    height: 180px;
-  }
-  .sf-blob-wrap {
-    width: 80vw;
-  }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   RESPONSIVE MÓVIL GLOBAL (≤ 480px)
-   ══════════════════════════════════════════════════════════════════ */
-
-@media (max-width: 480px) {
-  /* Logo: ligeramente más pequeño en pantallas muy estrechas */
-  #site-logo {
-    height: clamp(52px, 14vw, 80px);
-  }
-
-  /* Header: menos padding */
-  #site-header {
-    padding: 12px 14px 12px 8px;
-    gap: 10px;
+  /* Iconos sociales: bajarlos un poco para equilibrar con el logo */
+  .site-header-contact {
+    margin-top: 10px;
   }
 
   /* Mark-preview: no debe salirse del viewport */
@@ -973,11 +936,11 @@ body {
     border-radius: 18px 18px 0 0;
   }
 
-  /* Footer: menos espacio */
+  /* Footer: menos espacio, fondo que cubre hasta el borde */
   #site-footer {
-    height: 180px;
+    height: 200px;
   }
   .sf-blob-wrap {
-    width: 80vw;
+    width: 88vw;
   }
 }

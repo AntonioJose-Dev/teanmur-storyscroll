@@ -7,18 +7,13 @@ echo Haciendo git add...
 git add -A
 echo.
 echo Haciendo commit...
-git commit -m "feat: Railway deploy, mobile responsive, imagenes particulares, modos IA
+git commit -m "fix: mobile polish — logo izquierda, iconos sociales abajo, sin negro al scrollar
 
-- Railway: railway.toml, process.env.PORT, Express sirve frontend estatico
-- AI_PROXY_ORIGIN auto-detecta localhost vs produccion (mismo origen)
-- Mobile responsive: widget chat ancho completo, panel padding reducido,
-  imagen quienes somos adaptada, CTAs full-width, mark-preview max-width,
-  advice overlay tipo sheet, header/footer ajustados
-- Imagenes: todas las tarjetas de Particulares con foto real
-- Modo compatibilidad: 16 materiales, fallback servidor /api/compatibility
-- Modo colores: 5 familias, sugerencias por estancia
-- WhatsApp CTA: numero correcto 34968967450
-- Footer: Diseno web Antonio Jose Marin"
+- Logo mas pegado al borde izquierdo (padding-left: 4px en movil)
+- Iconos IG/WA/FB bajados con margin-top: 10px en movil
+- overscroll-behavior-y: none en body — elimina area negra al deslizar en iOS/Android
+- Eliminado bloque media query duplicado en main.css
+- Footer mas alto en movil (200px) para cubrir mejor el fondo"
 echo.
 echo Haciendo push a GitHub...
 git push origin main
