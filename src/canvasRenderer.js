@@ -24,7 +24,9 @@ export class CanvasRenderer {
   _drawCover(img) {
     const cw = this.canvas.width;
     const ch = this.canvas.height;
-    const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+    // En móvil (< 480px) reducimos un 22% para que el bote se vea más alejado
+    const mobileZoom = cw < 480 ? 0.78 : 1.0;
+    const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight) * mobileZoom;
     const dw = img.naturalWidth  * scale;
     const dh = img.naturalHeight * scale;
     const dx = (cw - dw) / 2;

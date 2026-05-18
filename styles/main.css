@@ -902,16 +902,20 @@ body {
    ══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 480px) {
-  /* Logo: grande y pegado a la esquina superior izquierda */
-  #site-logo {
-    height: clamp(76px, 22vw, 114px);
-    margin-left: -6px;
-  }
-
-  /* Header: sin padding izquierdo */
+  /* Header: position relative para anclar el logo en absoluto */
   #site-header {
     padding: 8px 12px 8px 0px;
     gap: 8px;
+    position: fixed; /* ya lo era, pero necesitamos que sea contenedor del logo abs */
+  }
+
+  /* Logo: posición absoluta en la esquina superior izquierda */
+  #site-logo {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    height: clamp(76px, 22vw, 114px);
+    z-index: 1;
   }
 
   /* Iconos sociales: bajarlos un poco para equilibrar con el logo */
