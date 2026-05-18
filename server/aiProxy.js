@@ -305,11 +305,8 @@ const app = express();
 
 app.use(cors({
   origin: (origin, cb) => {
-    // Same-origin requests (no Origin header) always allowed
     if (!origin) return cb(null, true);
-    // Local dev: frontend on :3000, proxy on :3002
     if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return cb(null, true);
-    // Production: any HTTPS origin (Railway, custom domain…)
     if (/^https:\/\//.test(origin)) return cb(null, true);
     cb(new Error('CORS: origen no permitido'));
   },
@@ -390,8 +387,6 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// ── Asesoramiento: extracción multi-campo ────────────────────────────────────
-
 const ADVICE_SYSTEM_PROMPT = `
 Eres extractor de datos para TEANMUR pinturas. El usuario describe su proyecto de pintura.
 Tu única tarea: extraer los valores que puedas del mensaje del usuario para cada campo.
@@ -414,12 +409,6 @@ Reglas campo a campo:
 - coats: número entero de manos/capas. "dos manos" → 2. "una capa" → 1. "triple capa" → 3.
 - finish: normaliza siempre a exactamente "mate", "satinado" o "brillante". Variantes: "matte", "made", "satin", "brillo", "brillante".
 - ack: frase de confirmación natural y breve (máximo 8 palabras) que confirme lo que se ha entendido. Si no hay nada que confirmar, pon "".
-
-Ejemplos de extracción:
-- "quiero pintar una habitación de 35 metros" → what:"habitación", sqm:35
-- "voy a pintar el salón, está bien la pared" → what:"salón", surface:"en buen estado"
-- "necesito pintura mate para 25m2 con dos capas" → sqm:25, finish:"mate", coats:2
-- "serán unos 40 metros, dos manos" → sqm:40, coats:2
 `.trim();
 
 app.post('/api/advice', async (req, res) => {
@@ -430,7 +419,6 @@ app.post('/api/advice', async (req, res) => {
   }
 
   if (!process.env.OPENAI_API_KEY) {
-    // Sin API key: devolver campos vacíos para que el cliente use extracción local
     return res.json({ fields: { what: null, sqm: null, surface: null, coats: null, finish: null }, ack: '' });
   }
 
@@ -454,7 +442,6 @@ app.post('/api/advice', async (req, res) => {
       parsed = {};
     }
 
-    // Sanear los tipos
     const fields = {
       what:    typeof parsed.what    === 'string'  && parsed.what.trim()    ? parsed.what.trim()                : null,
       sqm:     typeof parsed.sqm     === 'number'  && parsed.sqm     > 0    ? Math.round(parsed.sqm)            : null,
@@ -474,8 +461,6 @@ app.post('/api/advice', async (req, res) => {
   }
 });
 
-// ── Compatibilidad de pintura ─────────────────────────────────────────────────
-
 const COMPAT_SYSTEM_PROMPT = `
 Eres asesor técnico de TEANMUR pinturas. El usuario pregunta si una pintura o sistema es compatible
 con una superficie o material concreto.
@@ -487,29 +472,6 @@ Responde SOLO con JSON válido sin markdown:
   "needsMore":  <boolean>,
   "question":   <string|null>
 }
-
-Reglas de respuesta:
-- answer: respuesta corta (máx 2 frases). Empieza siempre con SÍ / NO / DEPENDE.
-  Indica si hace falta imprimación o preparación previa. Sé técnico pero natural.
-- confidence: "high" si la respuesta es clara, "low" si falta info.
-- needsMore: true si necesitas saber algo más para responder bien.
-- question: si needsMore=true, una sola pregunta corta (≤10 palabras). Si no, null.
-
-Reglas técnicas a aplicar:
-- azulejo/cerámica → imprimación de adherencia obligatoria antes de pintar
-- yeso/escayola nuevo → fijador o imprimación selladora previa
-- pladur/cartón-yeso → imprimación previa, igual que yeso
-- madera → esmalte sintético/acrílico, o barniz/lasure si se quiere ver la veta
-- metal/hierro → imprimación anticorrosiva + esmalte compatible
-- fachada/exterior → pintura exterior resistente a intemperie
-- baño/humedad → pintura antihumedad o lavable de alta resistencia
-- cocina → pintura lavable o antigrasa
-- humedad activa → NO pintar directamente; tratar el problema antes
-- ladrillo → pintura para fachada o sellador si muy poroso
-- cemento/hormigón → fijador si nuevo/muy poroso; esmalte para suelos en pavimentos
-- piscina → clorocaucho o epoxi, nunca pintura normal
-- plástico/PVC → depende del tipo; generalmente imprimación específica para plástico
-- pared pintada en buen estado → se puede repintar sin problemas según el acabado nuevo
 `.trim();
 
 app.post('/api/compatibility', async (req, res) => {
@@ -545,7 +507,6 @@ app.post('/api/compatibility', async (req, res) => {
       parsed = { answer: null, confidence: 'low', needsMore: false, question: null };
     }
 
-    console.log('[compat] material:', material, '→', parsed.answer?.slice(0, 60));
     return res.json({
       answer:     typeof parsed.answer   === 'string' ? parsed.answer.trim()   : null,
       confidence: parsed.confidence === 'high' ? 'high' : 'low',
@@ -562,7 +523,6 @@ app.post('/api/transcribe', async (req, res) => {
   const { audioBase64, mimeType } = req.body || {};
 
   if (!process.env.OPENAI_API_KEY) {
-    console.error('[aiProxy] OPENAI_API_KEY no configurada en .env');
     return res.status(500).json({ error: 'OPENAI_API_KEY no configurada' });
   }
 
@@ -583,8 +543,7 @@ app.post('/api/transcribe', async (req, res) => {
     const transcription = await openai.audio.transcriptions.create({
       file,
       model: 'whisper-1',
-      prompt:
-        'TEANMUR, paint, home, professional, contact, map. TEANMUR, pinturas, Murcia, Teniente Montesinos, Torre Godoy, Cartagena, Cabezo Beaza, Luxemburgo, Cieza, Ctra. de Madrid, Mercadona, central@pinturasteanmur.com, cartagena@pinturasteanmur.com, cieza@pinturasteanmur.com, contacto, mapa.',
+      prompt: 'TEANMUR, paint, home, professional, contact, map.',
     });
 
     const text = typeof transcription.text === 'string' ? transcription.text.trim() : '';
@@ -595,27 +554,14 @@ app.post('/api/transcribe', async (req, res) => {
   }
 });
 
-function prepareTextForOpenAiTts(input) {
-  return String(input ?? '')
-    .replace(/\bTEANMUR\b/gi, 'Tian-mur')
-    .trim();
-}
-
 app.post('/api/tts', async (req, res) => {
-  const {
-    text,
-    voice = 'shimmer',
-    model = 'tts-1-hd',
-    speed,
-    instructions,
-  } = req.body;
+  const { text, voice = 'shimmer', model = 'tts-1-hd', speed, instructions } = req.body;
 
   if (!text || typeof text !== 'string' || !text.trim()) {
     return res.status(400).json({ error: 'text requerido' });
   }
 
   if (!process.env.OPENAI_API_KEY) {
-    console.error('[aiProxy] OPENAI_API_KEY no configurada; /api/tts no disponible');
     return res.status(500).json({ error: 'OPENAI_API_KEY no configurada' });
   }
 
@@ -624,27 +570,23 @@ app.post('/api/tts', async (req, res) => {
   const ttsSpeed = typeof speed === 'number' && speed >= 0.25 && speed <= 4 ? speed : undefined;
 
   const supportsInstructions = ttsModel === 'gpt-4o-mini-tts' || ttsModel === 'gpt-4o-mini-tts-2025-12-15';
-  const instrDefault =
-    'Speak in the same language as the input text. Same voice and pace every time.';
+  const instrDefault = 'Speak in the same language as the input text. Same voice and pace every time.';
   const instr =
     supportsInstructions && typeof instructions === 'string' && instructions.trim()
       ? instructions.trim()
-      : supportsInstructions
-        ? instrDefault
-        : undefined;
+      : supportsInstructions ? instrDefault : undefined;
 
   try {
     const mp3 = await openai.audio.speech.create({
       model: ttsModel,
       voice,
-      input: prepareTextForOpenAiTts(text),
+      input: String(text).replace(/\bTEANMUR\b/gi, 'Tian-mur').trim(),
       response_format: 'mp3',
       ...(ttsSpeed != null ? { speed: ttsSpeed } : {}),
       ...(instr ? { instructions: instr } : {}),
     });
 
     const buffer = Buffer.from(await mp3.arrayBuffer());
-
     res.setHeader('Content-Type', 'audio/mpeg');
     res.setHeader('Content-Length', buffer.length);
     res.setHeader('Cache-Control', 'no-store');
@@ -656,23 +598,17 @@ app.post('/api/tts', async (req, res) => {
 });
 
 app.get('/api/health', (_req, res) =>
-  res.json({
-    ok: true,
-    tts: process.env.OPENAI_API_KEY ? 'openai' : 'none',
-  }),
+  res.json({ ok: true, tts: process.env.OPENAI_API_KEY ? 'openai' : 'none' })
 );
 
-// ── Archivos estáticos del frontend ──────────────────────────────────────────
-// En producción (Railway) Express sirve tanto la web como las rutas /api/*.
-// En dev local se sigue usando `npm run dev` (serve en :3000) + `npm run proxy` (:3002).
+// Archivos estáticos del frontend
 app.use(express.static(join(__dirname, '..')));
 
-// Fallback SPA: cualquier ruta no-API devuelve index.html
-app.get('*', (req, res) => {
+// Fallback SPA — Express 5 requiere '/*splat' en lugar de '*'
+app.get('/*splat', (req, res) => {
   res.sendFile(join(__dirname, '..', 'index.html'));
 });
 
-// Railway asigna PORT dinámicamente; en dev local se usa AI_PROXY_PORT o 3002.
 const PORT = process.env.PORT || process.env.AI_PROXY_PORT || 3002;
 app.listen(PORT, () => {
   console.log(`[aiProxy] Servidor escuchando en http://localhost:${PORT}`);
