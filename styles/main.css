@@ -902,12 +902,13 @@ body {
    ══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 480px) {
-  /* Logo: grande y en la esquina superior izquierda */
+  /* Logo: grande y pegado a la esquina superior izquierda */
   #site-logo {
     height: clamp(76px, 22vw, 114px);
+    margin-left: -6px;
   }
 
-  /* Header: sin padding izquierdo para que el logo toque el borde */
+  /* Header: sin padding izquierdo */
   #site-header {
     padding: 8px 12px 8px 0px;
     gap: 8px;
