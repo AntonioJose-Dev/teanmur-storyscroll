@@ -1,0 +1,8 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "node server/aiProxy.js"
+healthcheckPath = "/api/health"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3

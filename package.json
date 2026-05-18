@@ -1,0 +1,21 @@
+{
+  "name": "teanmur-storyscroll",
+  "version": "0.1.0",
+  "description": "Scroll-driven frame sequence — TEANMUR storyscroll",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve . --listen 3000",
+    "proxy": "node server/aiProxy.js",
+    "dev:all": "node server/dev-all.js",
+    "build": "echo 'Static site — no build step needed'",
+    "start": "node server/aiProxy.js"
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "openai": "^6.38.0"
+  }
+}
