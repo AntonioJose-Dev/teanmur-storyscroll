@@ -19,7 +19,7 @@ export const SECTION_CONTENT = {
   who: {
     metaLabel:        'Empresa',
     title:            'Quiénes somos',
-    shortDescription: 'Más de 20 años fabricando pinturas con exigencia industrial. Detrás de cada bote TEANMUR hay un equipo que no acepta medias tintas.',
+    shortDescription: 'Más de 35 años fabricando pinturas con exigencia industrial. Detrás de cada bote TEANMUR hay un equipo que no acepta medias tintas.',
     ctaLabel:         'Conocer el equipo',
     ctaHref:          '#quienes-somos',
   },
@@ -51,9 +51,9 @@ export const SECTION_CONTENT = {
   map: {
     metaLabel:        'Contacto',
     title:            'Encuéntranos',
-    shortDescription: 'Estamos en Valencia. Visítanos en tienda, llámanos o escríbenos — respondemos en menos de 24 h.',
+    shortDescription: 'Estamos en Cartagena, Murcia y Lorca. Visítanos en tienda, llámanos o escríbenos — respondemos en menos de 24 h.',
     ctaLabel:         'Cómo llegar',
-    ctaHref:          'https://maps.google.com/?q=TEANMUR+Valencia',
+    ctaHref:          'https://maps.google.com/?q=TEANMUR+Cartagena+Murcia',
   },
 
 };

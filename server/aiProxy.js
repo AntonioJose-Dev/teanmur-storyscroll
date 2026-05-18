@@ -72,7 +72,7 @@ Si el usuario nombra explícitamente uno de esos servicios, incluye detailSlug c
 ACTIVESTOREID (solo si intent es open_section y sectionId es "map"; si no aplica, null):
 - murcia — delegación Murcia (Av. Teniente Montesinos, frente Torre Godoy).
 - cartagena — delegación Cartagena (Pol. Ind. Cabezo Beaza, Av. Luxemburgo).
-- cieza — delegación Cieza (Ctra. de Madrid, frente Mercadona).
+- lorca — delegación Lorca.
 
 Si pide ruta o "cómo llegar" a una tienda concreta, rellena activeStoreId. Si solo pide contacto sin tienda, null.
 

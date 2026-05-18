@@ -7,7 +7,7 @@ export const PROS_HUB_SLUGS = ['express', 'tech_specialist', 'volume', 'trends',
 export const PART_HUB_SLUGS = ['tech_personal', 'color_sample', 'custom_paint', 'diy_courses', 'delivery', 'satisfaction'];
 
 /** Tiendas del panel Contacto / mapa (ids alineados con `PANEL_CONTENT.map.stores`). */
-export const MAP_STORE_IDS = ['murcia', 'cartagena', 'cieza'];
+export const MAP_STORE_IDS = ['murcia', 'cartagena', 'lorca'];
 
 export function foldHub(s) {
   return String(s ?? '')
@@ -236,11 +236,11 @@ export function isAllowedMapStoreId(id) {
 export function inferMapStoreFromUserMessage(rawText) {
   const t = foldHub(stripUiContextSuffix(rawText));
   if (!t) return null;
-  if (/\b(cieza)\b/.test(t)) return 'cieza';
+  if (/\b(lorca)\b/.test(t)) return 'lorca';
   if (/\b(cartagena|cabezo\s*beaza|luxemburgo|pol(\.\s*)?ind\.?\s*cabezo)\b/.test(t)) return 'cartagena';
   if (/\b(montesinos|teniente\s+montesinos|torre\s+godoy|av\.?\s*teniente)\b/.test(t)) return 'murcia';
-  if (/\b(murcia)\b/.test(t) && !/\b(cartagena|cieza)\b/.test(t)) return 'murcia';
-  if (/\b(c[oó]mo\s+llegar|llevame|ll[eé]vame|ruta)\b/.test(t) && /\b(cieza)\b/.test(t)) return 'cieza';
+  if (/\b(murcia)\b/.test(t) && !/\b(cartagena|lorca)\b/.test(t)) return 'murcia';
+  if (/\b(c[oó]mo\s+llegar|llevame|ll[eé]vame|ruta)\b/.test(t) && /\b(lorca)\b/.test(t)) return 'lorca';
   if (/\b(c[oó]mo\s+llegar|llevame|ll[eé]vame|ruta)\b/.test(t) && /\b(cartagena)\b/.test(t)) return 'cartagena';
   if (/\b(c[oó]mo\s+llegar|llevame|ll[eé]vame|ruta)\b/.test(t) && /\b(murcia)\b/.test(t)) return 'murcia';
   return null;

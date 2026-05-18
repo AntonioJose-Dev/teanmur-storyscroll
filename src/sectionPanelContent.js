@@ -31,7 +31,7 @@ export const PANEL_CONTENT = {
     subtitle: 'Pinturas & Decoración',
     body: [
       'Fundada en Murcia en 2003, TEANMUR nació con un objetivo claro: llevar la calidad industrial a cada proyecto, grande o pequeño.',
-      'Más de 20 años de experiencia en pinturas técnicas, decorativas e industriales nos avalan. Trabajamos con constructoras, estudios de arquitectura, aplicadores profesionales y particulares que exigen el mejor resultado.',
+      'Más de 35 años de experiencia en pinturas técnicas, decorativas e industriales nos avalan. Trabajamos con constructoras, estudios de arquitectura, aplicadores profesionales y particulares que exigen el mejor resultado.',
       'Calidad sin concesiones. Asesoramiento real. Compromiso con cada obra.',
     ],
     values: [
@@ -192,7 +192,7 @@ export const PANEL_CONTENT = {
     type: 'contactStores',
     title: 'Contacto',
     intro:
-      'Tres delegaciones en la Región de Murcia: Murcia, Cartagena y Cieza. Elige una para ver dirección, teléfonos, email y ruta en el mapa.',
+      'Tres delegaciones en la Región de Murcia: Murcia, Cartagena y Lorca. Elige una para ver dirección, teléfonos, email y ruta en el mapa.',
     stores: [
       {
         id: 'murcia',
@@ -223,18 +223,18 @@ export const PANEL_CONTENT = {
           encodeURIComponent('TEANMUR Avenida Luxemburgo 54 Cabezo Beaza Cartagena'),
       },
       {
-        id: 'cieza',
-        name: 'TEANMUR Cieza',
-        address: 'Ctra. de Madrid Nº 1\n(Frente a Mercadona)\n30530 Cieza, Murcia',
+        id: 'lorca',
+        name: 'TEANMUR Lorca',
+        address: 'Lorca, Murcia',
         phone: '+34 968 074 560',
         phoneExtra: '+34 608 772 529',
-        email: 'cieza@pinturasteanmur.com',
+        email: 'lorca@pinturasteanmur.com',
         hours: 'Lun–Vie 9:00–14:00 y 16:30–19:30 · Sáb 9:30–13:30 (consultar)',
-        lat: 38.2388,
-        lng: -1.4194,
+        lat: 37.6713,
+        lng: -1.7009,
         mapsUrl:
           'https://www.google.com/maps/search/?api=1&query=' +
-          encodeURIComponent('TEANMUR Ctra. de Madrid 1 Cieza Mercadona'),
+          encodeURIComponent('TEANMUR Lorca Murcia'),
       },
     ],
   },
